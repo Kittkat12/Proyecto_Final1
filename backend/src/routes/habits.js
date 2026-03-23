@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const Habit = require("../models/Habit");
+const authMiddleware = require("../../middleware/authMiddleware");
+
 
 // Habito****Seman#1
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware, async (req, res) => {
   try {
     const nuevoHabit = new Habit(req.body);
     const habitGuardado = await nuevoHabit.save();

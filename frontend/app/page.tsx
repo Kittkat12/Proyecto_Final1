@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHabits, markHabitDone } from "../features/habits/habitsSlice";
 import type { RootState, AppDispatch } from "../store/store";
@@ -11,9 +11,53 @@ export default function Home() {
     (state: RootState) => state.habits
   );
 
+  const [nombre, setNombre] = useState("");
+  const [frecuencia, setFrecuencia] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
   useEffect(() => {
     dispatch(fetchHabits());
   }, [dispatch]);
+
+  const handleCreateHabit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        setMensaje("Debes iniciar sesión primero");
+        return;
+      }
+
+      const response = await fetch("http://localhost:3000/habits", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          nombre,
+          frecuencia,
+          completado: false,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMensaje(data.error || "Error al crear hábito");
+        return;
+      }
+
+      setMensaje("Hábito creado correctamente");
+      setNombre("");
+      setFrecuencia("");
+      dispatch(fetchHabits());
+    } catch (error) {
+      setMensaje("Error de conexión con el servidor");
+    }
+  };
 
   return (
     <main className="min-h-screen bg-gray-100 p-6">
@@ -21,6 +65,44 @@ export default function Home() {
         <h1 className="mb-6 text-center text-3xl font-bold text-gray-800">
           Lista de Hábitos
         </h1>
+
+        <form onSubmit={handleCreateHabit} className="mb-8 space-y-4 rounded-lg border border-gray-200 p-4">
+          <h2 className="text-xl font-semibold text-gray-800">Agregar hábito</h2>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Nombre
+            </label>
+            <input
+              type="text"
+              className="w-full rounded border border-gray-300 p-2"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Frecuencia
+            </label>
+            <input
+              type="text"
+              className="w-full rounded border border-gray-300 p-2"
+              value={frecuencia}
+              onChange={(e) => setFrecuencia(e.target.value)}
+              placeholder="Ejemplo: diaria"
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+          >
+            Guardar hábito
+          </button>
+
+          {mensaje && <p className="text-sm text-gray-700">{mensaje}</p>}
+        </form>
 
         {loading && <p className="mb-4 text-blue-600">Cargando hábitos...</p>}
         {error && <p className="mb-4 text-red-600">{error}</p>}

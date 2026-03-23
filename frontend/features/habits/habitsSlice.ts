@@ -2,8 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchHabits = createAsyncThunk("habits/fetchHabits", async () => {
   const response = await fetch("http://localhost:3000/habits");
-  const data = await response.json();
-  return data;
+  if (!response.ok) {
+    throw new Error("Error al obtener hábitos");
+  }
+  return await response.json();
 });
 
 export const markHabitDone = createAsyncThunk(
