@@ -6,11 +6,26 @@ export const fetchHabits = createAsyncThunk("habits/fetchHabits", async () => {
   return data;
 });
 
+export const markHabitDone = createAsyncThunk(
+  "habits/markHabitDone",
+  async (id: string) => {
+    const response = await fetch(`http://localhost:3000/habits/${id}/done`, {
+      method: "PATCH",
+    });
+
+    const data = await response.json();
+    return data;
+  }
+);
+
 interface Habit {
   _id: string;
   nombre: string;
   frecuencia?: string;
   completado?: boolean;
+  racha?: number;
+  ultimoCheck?: string | null;
+  metaDias?: number;
 }
 
 interface HabitsState {
@@ -42,6 +57,15 @@ const habitsSlice = createSlice({
       .addCase(fetchHabits.rejected, (state) => {
         state.loading = false;
         state.error = "Error al obtener hábitos";
+      })
+      .addCase(markHabitDone.fulfilled, (state, action) => {
+        const index = state.items.findIndex(
+          (habit) => habit._id === action.payload._id
+        );
+
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
       });
   },
 });

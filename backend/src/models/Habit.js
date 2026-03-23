@@ -5,23 +5,30 @@ const habitSchema = new mongoose.Schema(
     nombre: {
       type: String,
       required: true,
-      trim: true
-    },
-    descripcion: {
-      type: String,
-      trim: true
     },
     frecuencia: {
       type: String,
-      default: "diaria"
+      required: true,
     },
     completado: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    racha: {
+      type: Number,
+      default: 0,
+    },
+    ultimoCheck: {
+      type: Date,
+      default: null,
+    },
+    metaDias: {
+      type: Number,
+      default: 66,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

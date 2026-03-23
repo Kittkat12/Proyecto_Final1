@@ -1,26 +1,11 @@
-# Proyecto Hábitos - Semana 2
-En esta semana se trabajó en:
-- configuración inicial del frontend con Next.js
-- integración de Redux
-- obtención de hábitos desde el backend con un request GET
-- separación del proyecto en carpetas `backend` y `frontend`
+## Semana 4
 
-## Tecnologías utilizadas
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- Next.js
-- Redux Toolkit
-- React Redux
+En esta semana se agregaron nuevas funcionalidades al proyecto de hábitos:
 
-## Estructura del proyecto
-- `backend`: servidor en Express y conexión a MongoDB
-- `frontend`: aplicación en Next.js
-
-## Ejecución del backend
-1. Abrir terminal en la carpeta `backend`
-2. Instalar dependencias:
-
-```bash
-npm install
+- Registro de usuarios
+- Login de usuarios
+- Encriptación de contraseñas con bcryptjs
+- Lógica de racha de días en hábitos
+- Reinicio de racha si se pierde un día
+- Botón Done funcional en el frontend
+- Barra de progreso dinámica basada en la racha hacia 66 días
