@@ -1,51 +1,27 @@
-# Proyecto de Hábitos - Semana 1
+# Proyecto Hábitos - Semana 2
 
-Este proyecto corresponde a la Semana 1.
+En esta semana se trabajó en:
+- configuración inicial del frontend con Next.js
+- integración de Redux
+- integración del request GET con el backend para obtener hábitos
+- separación del proyecto en carpetas `backend` y `frontend`
 
 ## Tecnologías utilizadas
 - Node.js
 - Express.js
 - MongoDB Atlas
 - Mongoose
-- Dotenv
-- Nodemon
+- Next.js
+- Redux Toolkit
+- React Redux
 
-## Requisitos
-- Node.js instalado
-- npm instalado
-- Una cuenta en MongoDB Atlas
+## Estructura del proyecto
+- `backend`: servidor en Express y conexión a MongoDB
+- `frontend`: aplicación en Next.js
 
-## Instalación
-1. Clonar el repositorio
-2. Abrir la carpeta del proyecto en Visual Studio Code
-3. Instalar las dependencias con el siguiente comando:
+## Ejecución del backend
+1. Abrir terminal en la carpeta `backend`
+2. Instalar dependencias:
 
+```bash
 npm install
-
-## Variables de entorno
-Crear un archivo `.env` en la raíz del proyecto con el siguiente contenido:
-
-MONGODB_URI=String de MongoDB
-PORT=3000
-
-## Ejecución del proyecto
-Para correr el proyecto en modo desarrollo usar:
-
-npm run dev
-
-## Endpoints disponibles, probados en Thunder Client
-
-### Crear hábito
-POST /habits
-
-### Obtener hábitos
-GET /habits
-
-### Actualizar hábito
-PUT /habits/:id
-
-### Eliminar hábito
-DELETE /habits/:id
-
-## Notas
-Este proyecto incluye la configuración inicial del backend, conexión a MongoDB Atlas y operaciones básicas para gestionar hábitos.
