@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchHabits, markHabitDone } from "../features/habits/habitsSlice";
 import type { RootState, AppDispatch } from "../store/store";
-
+const API_URL = "https://proyecto-final1-d8r8.onrender.com";
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading, error } = useSelector(
@@ -30,18 +30,18 @@ export default function Home() {
         return;
       }
 
-      const response = await fetch("http://localhost:3000/habits", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          nombre,
-          frecuencia,
-          completado: false,
-        }),
-      });
+      const response = await fetch(`${API_URL}/habits`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify({
+    nombre,
+    frecuencia,
+    completado: false,
+  }),
+});
 
       const data = await response.json();
 
