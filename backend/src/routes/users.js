@@ -2,7 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-
+const isProduction = process.env.NODE_ENV === "production";
 const router = express.Router();
 
 // Registro
