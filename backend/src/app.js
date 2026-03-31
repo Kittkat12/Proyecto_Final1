@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: isProduction ? "URL_DEL_FRONTEND_EN_RENDER" : "http://localhost:3001",
+    origin: true,
     credentials: true,
   })
 );
