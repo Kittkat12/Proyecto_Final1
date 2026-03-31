@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
+const API_URL = "https://proyecto-final1-d8r8.onrender.com";
 export const fetchHabits = createAsyncThunk("habits/fetchHabits", async () => {
-  const response = await fetch("http://localhost:3000/habits");
+  const response = await fetch(`${API_URL}/habits`);
   if (!response.ok) {
     throw new Error("Error al obtener hábitos");
   }
@@ -11,7 +11,7 @@ export const fetchHabits = createAsyncThunk("habits/fetchHabits", async () => {
 export const markHabitDone = createAsyncThunk(
   "habits/markHabitDone",
   async (id: string) => {
-    const response = await fetch(`http://localhost:3000/habits/${id}/done`, {
+    const response = await fetch(`${API_URL}/habits/${id}/done`, {
       method: "PATCH",
     });
 

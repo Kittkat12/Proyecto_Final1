@@ -66,6 +66,13 @@ router.post("/login", async (req, res) => {
       { expiresIn: "1d" }
     );
 
+res.cookie("habitToken", token, {
+  httpOnly: false,
+  secure: isProduction,
+  sameSite: isProduction ? "none" : "lax",
+  maxAge: 24 * 60 * 60 * 1000,
+});
+
     res.json({
       message: "Login correcto",
       token,
